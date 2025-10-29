@@ -21,6 +21,7 @@ import eu.kanade.tachiyomi.util.system.getResourceColor
 import yokai.i18n.MR
 import yokai.util.lang.getString
 import android.R as AR
+import eu.kanade.tachiyomi.data.translation.model.Translation
 
 class ChapterHolder(
     view: View,
@@ -45,6 +46,7 @@ class ChapterHolder(
             chapter.preferredChapterName(itemView.context, manga, adapter.preferences)
 
         binding.downloadButton.downloadButton.isVisible = !manga.isLocal() && !isLocked
+        binding.chapterTranslate.isVisible = !manga.isLocal() && !isLocked
         localSource = manga.isLocal()
 
         ChapterUtil.setTextViewForChapter(binding.chapterTitle, item, hideStatus = isLocked)
@@ -92,6 +94,7 @@ class ChapterHolder(
         }
 
         notifyStatus(status, item.isLocked, item.progress)
+        notifyTranslationStatus(Translation.State.NOT_TRANSLATED)
         resetFrontView()
         if (flexibleAdapterPosition == 1) {
             if (!adapter.hasShownSwipeTut.get()) showSlideAnimation()
@@ -164,5 +167,22 @@ class ChapterHolder(
         }
         isVisible = !localSource
         setDownloadStatus(status, progress, animated)
+    }
+
+    fun notifyTranslationStatus(status: Translation.State) = with(binding.chapterTranslate) {
+        when (status) {
+            Translation.State.NOT_TRANSLATED -> {
+                setImageResource(R.drawable.ic_translate_24dp)
+            }
+            Translation.State.TRANSLATING -> {
+                setImageResource(R.drawable.ic_progress_clock_24dp)
+            }
+            Translation.State.TRANSLATED -> {
+                setImageResource(R.drawable.ic_check_24dp)
+            }
+            Translation.State.ERROR -> {
+                setImageResource(R.drawable.ic_close_24dp)
+            }
+        }
     }
 }

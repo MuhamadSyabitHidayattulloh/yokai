@@ -80,6 +80,12 @@ class SettingsMainController : SettingsLegacyController(), FloatingSearchInterfa
             onClick { navigateTo(SettingsBrowseController()) }
         }
         preference {
+            iconRes = R.drawable.ic_translate_24dp
+            iconTint = tintColor
+            titleRes = MR.strings.translations
+            onClick { navigateTo(SettingsTranslationsController()) }
+        }
+        preference {
             iconRes = R.drawable.ic_sync_24dp
             iconTint = tintColor
             titleRes = MR.strings.tracking

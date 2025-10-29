@@ -1199,4 +1199,11 @@
     <string name="crash_screen_restart_application">Restart the application</string>
 
     <string name="refresh">Refresh</string>
+
+    <string name="translations">Translations</string>
+    <string name="translate_from">Translate From</string>
+    <string name="translate_to">Translate To</string>
+    <string name="translation_models">Translation Models</string>
+    <string name="translate_after_downloading">Translate After Downloading</string>
+    <string name="enable_translation">Enable Translation</string>
 </resources>
