@@ -196,11 +196,12 @@ class Downloader(
                             val statusValue = it.status.value
                             Download.State.NOT_DOWNLOADED.value <= statusValue && statusValue <= Download.State.DOWNLOADING.value
                         }
-                        .groupBy { it.source }
+                        .groupBy { it.manga }
                         .toList()
-                        // Concurrently download from 5 different sources
-                        .take(5)
-                        .map { (_, downloads) -> downloads.first() }
+                        .take(downloadPreferences.concurrentDownloadManga().get())
+                        .flatMap { (_, downloads) ->
+                            downloads.take(downloadPreferences.concurrentDownloadMangaPerSource().get())
+                        }
                     emit(activeDownloads)
 
                     if (activeDownloads.isEmpty()) break

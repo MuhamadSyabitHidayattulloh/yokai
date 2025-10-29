@@ -1000,6 +1000,10 @@
     <string name="split_tall_images">Split tall images</string>
     <string name="split_tall_images_summary">Improves reader performance</string>
 
+    <string name="concurrent_downloads">Concurrent downloads</string>
+    <string name="max_concurrent_manga_downloads">Max concurrent manga downloads</string>
+    <string name="max_concurrent_downloads_per_manga">Max concurrent downloads per manga</string>
+
     <!-- Stats -->
     <string name="stat">Stat</string>
     <string name="stats">Stats</string>
