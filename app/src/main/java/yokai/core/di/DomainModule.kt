@@ -52,10 +52,12 @@ import yokai.domain.track.TrackRepository
 import yokai.domain.track.interactor.DeleteTrack
 import yokai.domain.track.interactor.GetTrack
 import yokai.domain.track.interactor.InsertTrack
+import yokai.domain.translation.TranslationPreferences
 
 fun domainModule() = module {
     factory { TrustExtension(get(), get()) }
 
+    single { TranslationPreferences(get()) }
     single<CategoryRepository> { CategoryRepositoryImpl(get()) }
     factory { DeleteCategories(get()) }
     factory { GetCategories(get()) }
