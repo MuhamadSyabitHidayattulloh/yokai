@@ -55,6 +55,23 @@ class SettingsDownloadController : SettingsLegacyController() {
             summaryRes = MR.strings.download_with_id_details
         }
 
+        preferenceCategory {
+            titleRes = MR.strings.concurrent_downloads
+
+            intListPreference(activity) {
+                bindTo(downloadPreferences.concurrentDownloadManga())
+                titleRes = MR.strings.max_concurrent_manga_downloads
+                entries = (1..5).map { it.toString() }
+                entryValues = (1..5).toList()
+            }
+            intListPreference(activity) {
+                bindTo(downloadPreferences.concurrentDownloadMangaPerSource())
+                titleRes = MR.strings.max_concurrent_downloads_per_manga
+                entries = (1..5).map { it.toString() }
+                entryValues = (1..5).toList()
+            }
+        }
+
         // FIXME: Don't do blocking
         val dbCategories = runBlocking { getCategories.await() }
         val categories = listOf(Category.createDefault(context)) + dbCategories
