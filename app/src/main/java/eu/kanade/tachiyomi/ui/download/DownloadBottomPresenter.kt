@@ -44,10 +44,12 @@ class DownloadBottomPresenter : BaseCoroutinePresenter<DownloadBottomSheet>(),
     fun getItems() {
         presenterScope.launch {
             val items = downloadQueueState.value
-                .groupBy { it.source }
-                .map { entry ->
-                    DownloadHeaderItem(entry.key.id, entry.key.name, entry.value.size).apply {
-                        addSubItems(0, entry.value.map { DownloadItem(it, this) })
+                .groupBy { it.manga }
+                .mapNotNull { entry ->
+                    entry.key.id?.let {
+                        DownloadHeaderItem(it, entry.key.title, entry.value.size).apply {
+                            addSubItems(0, entry.value.map { DownloadItem(it, this) })
+                        }
                     }
                 }
             val hasChanged = if (this@DownloadBottomPresenter.items.size != items.size ||
